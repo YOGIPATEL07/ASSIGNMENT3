@@ -18,7 +18,7 @@ router.get("/login", (req, res, next) => {
 });
 // POST /login > when user clicks on the button
 router.post("/login", passport.authenticate("local", {
-  successRedirect: "/employees",
+  successRedirect: "/",
   failureRedirect: "/login",
   failureMessage: "Invalid Login", // to handle messages in the login page and show alerts
 }));
