@@ -8,9 +8,9 @@ const globals = {
     },
     Authentication: {
         GitHub: {
-          ClientId: "Ov23ctqw3kb1D0x0Ibwp",
+         ClientId: "Ov23ctqw3kb1D0x0Ibwp",
           ClientSecret: "37b959a56c86755478041d490c4184636feda578",
-          CallbackUrl: "http://localhost:3000/github/callback"
+          CallbackUrl: "https://assignment3-ujm8.onrender.com/github/callback"
         },
       },
 }
