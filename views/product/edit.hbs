@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5; /* Light background for a modern look */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            border-radius: 8px; /* Rounded corners for a softer look */
+            box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
+        }
+        .header-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 2rem;
+            text-align: center; /* Centered title for emphasis */
+        }
+        .form-control, .form-control:focus {
+            border-color: #ced4da;
+            box-shadow: none;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #495057; /* Darker color for better readability */
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-textarea {
+            min-height: 120px; /* Ensure textarea is large enough for text */
+        }
+        .price-input-wrapper {
+            position: relative;
+        }
+        .price-input-wrapper .form-control {
+            padding-left: 2.5rem; /* Adjust padding to make space for the dollar sign */
+        }
+        .price-input-wrapper .price-sign {
+            position: absolute;
+            left: 1rem; /* Adjust position to align with padding */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d; /* Light gray for the dollar sign */
+            font-size: 1.1rem; /* Slightly larger for visibility */
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <h2 class="header-title">Edit Product</h2>
+        <form id="product-form" action="/products/edit/{{product._id}}" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{product.name}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price:</label>
+                <div class="price-input-wrapper">
+                    <input type="text" class="form-control price-input" id="price" name="price" value="{{product.price}}" required>
+                    <span class="price-sign">$</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="stock" class="form-label">Stock:</label>
+                <input type="number" class="form-control" id="stock" name="stock" value="{{product.stock}}" min="0" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea class="form-control form-textarea" id="description" name="description" required>{{product.description}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="imageFiles" class="form-label">Image Files (comma separated):</label>
+                <textarea class="form-control form-textarea" id="imageFiles" name="imageFiles" required>{{product.imageFiles}}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <script>
+        document.querySelectorAll('.price-input').forEach(input => {
+            input.addEventListener('input', () => {
+                let value = input.value.replace(/[^0-9.]/g, ''); // Remove all non-numeric characters except dot
+                if (value) {
+                    input.value = '$' + value;
+                } else {
+                    input.value = ''; // Clear value if no digits
+                }
+            });
+        });
+
+        document.getElementById('product-form').addEventListener('submit', function(event) {
+            const priceInput = this.querySelector('.price-input').value;
+            const stockInput = this.querySelector('#stock').value;
+
+            // Remove dollar sign for numerical validation
+            const priceValue = parseFloat(priceInput.replace('$', ''));
+            if (isNaN(priceValue) || priceValue < 0) {
+                alert("Price must be a positive number.");
+                event.preventDefault(); // Prevent form submission
+                return;
+            }
+
+            // Ensure stock value is non-negative
+            const stockValue = parseInt(stockInput, 10);
+            if (isNaN(stockValue) || stockValue < 0) {
+                alert("Stock must be a non-negative number.");
+                event.preventDefault(); // Prevent form submission
+                return;
+            }
+        });
+    </script>
+</body>
+</html>

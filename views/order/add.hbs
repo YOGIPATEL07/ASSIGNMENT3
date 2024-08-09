@@ -1,0 +1,31 @@
+<div class="container my-5">
+    <h2>Add Order</h2>
+    <form action="/orders/add" method="post">
+        <label for="customer">Customer:</label>
+        <select id="customer" name="customer" required>
+            {{#each customers}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+        
+        <label for="employee">Employee:</label>
+        <select id="employee" name="employee" required>
+            {{#each employees}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+        
+        <label for="items">Items:</label>
+        <div id="items">
+            {{#each products}}
+            <div>
+                <input type="checkbox" id="product_{{this._id}}" name="items[{{@index}}][product]" value="{{this._id}}">
+                <label for="product_{{this._id}}">{{this.name}}</label>
+                <input type="number" name="items[{{@index}}][quantity]" min="1" placeholder="Quantity">
+            </div>
+            {{/each}}
+        </div>
+        
+        <button type="submit">Add</button>
+    </form>
+</div>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background for the entire page */
+            font-family: 'Arial', sans-serif; /* Clean font */
+        }
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Full viewport height */
+        }
+        .content {
+            flex: 1; /* Grow to take available space */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            padding: 2rem; /* Padding around the form */
+        }
+        .form-container {
+            background-color: #ffffff; /* White background for the form */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            padding: 2rem; /* Padding inside the form */
+            width: 100%;
+            max-width: 400px; /* Max width for the form */
+            margin: 1rem; /* Margin around the form */
+        }
+        .form-header {
+            text-align: center; /* Center align the header */
+            margin-bottom: 1.5rem; /* Space below the header */
+            color: #007bff; /* Primary color */
+            font-size: 2rem; /* Larger font size for emphasis */
+            font-weight: 600; /* Bold font weight */
+        }
+        .form-group {
+            margin-bottom: 1.25rem; /* Space between form fields */
+        }
+        .form-control {
+            border-radius: 6px; /* Rounded corners for inputs */
+            border: 1px solid #ddd; /* Light border color */
+            padding: 0.75rem 1rem; /* Padding inside input fields */
+            box-shadow: none; /* Remove default shadow */
+        }
+        .form-control:focus {
+            border-color: #007bff; /* Blue border on focus */
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Shadow on focus */
+        }
+        .form-label {
+            font-weight: 500; /* Semi-bold labels */
+            color: #555; /* Darker color for labels */
+        }
+        .btn-info {
+            background-color: #17a2b8; /* Cyan background color */
+            border-color: #17a2b8; /* Matching border color */
+            font-weight: 600; /* Bold button text */
+            padding: 0.75rem 1.25rem; /* Padding for button */
+            border-radius: 6px; /* Rounded button corners */
+            transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+        }
+        .btn-info:hover {
+            background-color: #138496; /* Darker cyan on hover */
+            border-color: #117a8b; /* Matching border color on hover */
+        }
+        .form-footer {
+            text-align: center; /* Center align footer text */
+            margin-top: 1.5rem; /* Space above the footer */
+            font-size: 0.875rem; /* Smaller font size */
+            color: #666; /* Muted text color */
+        }
+        .form-footer a {
+            color: #007bff; /* Primary color for links */
+            text-decoration: none; /* Remove underline from links */
+            font-weight: 600; /* Bold links */
+        }
+        .form-footer a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+        .alert {
+            margin-bottom: 1.5rem; /* Space below the alert */
+        }
+    </style>
+</head>
+<body>
+    <!-- Include your header layout file here -->
+    <!-- header.ejs or similar -->
+    <header>
+        <!-- Your header content -->
+    </header>
+    
+    <div class="main-wrapper">
+        <div class="content">
+            <div class="form-container">
+                <div class="form-header">Login</div>
+                {{#if messages}}
+                    <div class="alert alert-danger">
+                        Invalid credentials
+                    </div>
+                {{else}}
+                    <div class="alert alert-info">
+                        Please enter your credentials
+                    </div>
+                {{/if}}
+                <form method="post">
+                    <fieldset class="form-group">
+                        <label for="username" class="form-label">Username: *</label>
+                        <input
+                            name="username"
+                            id="username"
+                            type="text"
+                            required
+                            placeholder="yourusername"
+                            class="form-control"
+                        />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="password" class="form-label">Password: *</label>
+                        <input
+                            name="password"
+                            id="password"
+                            type="password"
+                            required
+                            class="form-control"
+                        />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <button type="submit" class="btn btn-info">
+                            Login
+                        </button>
+                        <a class="btn btn-info w-100 mt-2" href="/github">
+                            Login with Github
+                        </a>
+                        <hr />
+                        <div class="form-footer">
+                            Need an account? <a href="/register" title="Register">Register</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include your footer layout file here -->
+    <!-- footer.ejs or similar -->
+    <footer>
+        <!-- Your footer content -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>

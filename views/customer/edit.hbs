@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Customer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .form-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .form-control {
+            border: 2px solid #ced4da;
+            border-radius: 5px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 146, 0.25);
+        }
+        .btn-primary {
+            background-color: #00796b;
+            border-color: #00796b;
+        }
+        .btn-primary:hover {
+            background-color: #005a4e;
+            border-color: #005a4e;
+        }
+        .container h2 {
+            font-size: 2rem;
+            color: #00796b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .mb-3 label {
+            font-size: 1.1rem;
+        }
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-5">
+        <h2>Edit Customer</h2>
+        <form id="edit-customer-form" action="/customers/edit/{{customer._id}}" method="post" onsubmit="return validateEditCustomerForm()">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{customer.name}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{customer.email}}" required>
+                <div class="invalid-feedback" id="email-error">Please enter a valid email address.</div>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone:</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{customer.phone}}" placeholder="0000000000" required>
+                <div class="invalid-feedback" id="phone-error">Phone number must be in the format 0000000000.</div>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="address" name="address" value="{{customer.address}}">
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+
+    <script>
+        function validateEditCustomerForm() {
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+            let isValid = true;
+
+            // Email validation
+            if (!email.validity.valid) {
+                email.classList.add('is-invalid');
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            } else {
+                email.classList.remove('is-invalid');
+                document.getElementById('email-error').style.display = 'none';
+            }
+
+            // Phone validation
+            const phonePattern = /^\d{3}\d{3}\d{4}$/;
+            if (!phonePattern.test(phone.value)) {
+                phone.classList.add('is-invalid');
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            } else {
+                phone.classList.remove('is-invalid');
+                document.getElementById('phone-error').style.display = 'none';
+            }
+
+            return isValid;
+        }
+    </script>
+
+</body>
+</html>

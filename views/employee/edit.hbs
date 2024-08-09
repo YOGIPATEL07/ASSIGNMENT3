@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-control:focus {
+            border-color: #00796b;
+            box-shadow: none;
+        }
+        .btn-primary {
+            background-color: #00796b;
+            border-color: #00796b;
+        }
+        .btn-primary:hover {
+            background-color: #005a4e;
+            border-color: #005a4e;
+        }
+        .container h2 {
+            font-size: 2rem;
+            color: #00796b;
+            margin-bottom: 20px;
+        }
+        .mb-3 label {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-5">
+        <h2>Edit Employee</h2>
+        <form id="edit-employee-form" action="/employees/edit/{{employee._id}}" method="post" onsubmit="return validateForm()">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{employee.name}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Age:</label>
+                <input type="number" class="form-control" id="age" name="age" value="{{employee.age}}" 
+                       max="70" required>
+                <div class="invalid-feedback" id="age-error">Age must be between 1 and 70.</div>
+            </div>
+            <div class="mb-3">
+                <label for="id" class="form-label">ID:</label>
+                <input type="text" class="form-control" id="id" name="id" value="{{employee.id}}" 
+                       pattern="^(?!0+$)\d+$" required>
+                <div class="invalid-feedback" id="id-error">ID must be a non-zero number.</div>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender:</label>
+                <input type="text" class="form-control" id="gender" name="gender" value="{{employee.gender}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="shiftStatus" class="form-label">Shift Status:</label>
+                <input type="text" class="form-control" id="shiftStatus" name="shiftStatus" 
+                       value="{{employee.shiftStatus}}" 
+                       pattern="^(?:[01]?\d|2[0-3])-(?:[01]?\d|2[0-3])$" 
+                       placeholder="e.g., 5-9 or 0-0" required>
+                <div class="invalid-feedback" id="shiftStatus-error">Shift status must be in the format 'hh-hh', e.g., '5-9' or '0-0'.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+
+    <script src="/javascripts/main.js"></script>
+    <script>
+        function validateForm() {
+            const age = document.getElementById('age');
+            const id = document.getElementById('id');
+            const shiftStatus = document.getElementById('shiftStatus');
+            let isValid = true;
+
+            // Age validation
+            if (age.value < 1 || age.value > 70) {
+                age.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                age.classList.remove('is-invalid');
+            }
+
+            // ID validation
+            if (id.value <= 0) {
+                id.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                id.classList.remove('is-invalid');
+            }
+
+            // Shift Status validation
+            const shiftStatusPattern = /^(?:[01]?\d|2[0-3])-(?:[01]?\d|2[0-3])$/;
+            if (!shiftStatusPattern.test(shiftStatus.value)) {
+                shiftStatus.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                shiftStatus.classList.remove('is-invalid');
+            }
+
+            return isValid;
+        }
+    </script>
+
+</body>
+</html>

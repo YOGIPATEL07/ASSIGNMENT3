@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table thead th {
+            background-color: #00796b;
+            color: white;
+        }
+        .btn-warning, .btn-danger {
+            margin-right: 5px;
+        }
+        .btn-success {
+            background-color: #4caf50;
+            border-color: #4caf50;
+        }
+        .btn-success:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+        .container h2 {
+            font-size: 2rem;
+            color: #00796b;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-5">
+        <h2>Employees</h2>
+        {{#if user}}
+        <a href="/employees/add" class="btn btn-success mb-3">Add Employee</a>{{/if}}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>ID</th>
+                    <th>Gender</th>
+                    <th>Shift Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each employees}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.age}}</td>
+                    <td>{{this.id}}</td>
+                    <td>{{this.gender}}</td>
+                    <td>{{this.shiftStatus}}</td>
+                    {{#if ../user}}
+                    <td>
+                        <a href="/employees/edit/{{this._id}}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="/employees/delete/{{this._id}}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                    {{/if}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <script src="/javascripts/main.js"></script>
+</body>
+</html>

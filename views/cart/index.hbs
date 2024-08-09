@@ -1,0 +1,38 @@
+<div class="container my-5">
+    <h2>Cart</h2>
+    {{#if cart.items.length}}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cart.items}}
+            <tr>
+                <td>{{this.product.name}}</td>
+                <td>{{this.quantity}}</td>
+                <td>${{this.product.price}}</td>
+                <td>
+                    <form action="/cart/remove/{{this._id}}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="text-end">
+        <a href="/products" class="btn btn-secondary">Back to Products</a>
+          <form action="/cart/purchase" method="post">
+        <button type="submit" class="btn btn-success">Purchase</button>
+    </form>
+    </div>
+    {{else}}
+    <p>Your cart is empty.</p>
+    <a href="/products" class="btn btn-primary">Back to Products</a>
+    {{/if}}
+</div>

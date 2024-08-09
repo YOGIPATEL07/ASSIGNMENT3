@@ -1,0 +1,43 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">POS System</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                   
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Customers">Customers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Employees">Employees</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Products">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Orders">Orders</a>
+                        </li>
+                        <ul class="navbar-nav ml-auto">          
+          {{#if user}}
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{user.username}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Logout">Logout</a>
+            </li>
+          {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/Register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Login">Login</a>
+            </li>
+          {{/if}}
+        </ul>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,16 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+header, footer {
+  background-color: #343a40;
+  color: white;
+}
+
+footer p {
+  margin: 0;
+}
+
+.container {
+  margin-top: 30px;
+}

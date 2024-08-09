@@ -1,0 +1,31 @@
+<div class="container my-5">
+    <h2>Edit Order</h2>
+    <form action="/orders/edit/{{order._id}}" method="post">
+        <div class="form-group">
+            <label for="employee">Employee</label>
+            <select id="employee" name="employee" class="form-control">
+                {{#each employees}}
+                <option value="{{this._id}}" {{#ifEquals this._id ../order.employee._id}}selected{{/ifEquals}}>{{this.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="items">Items</label>
+            <!-- Assuming there's a way to dynamically add items -->
+            <div id="items-container">
+                {{#each order.items}}
+                <div class="item">
+                    <select name="items[][product]" class="form-control">
+                        {{#each ../products}}
+                        <option value="{{this._id}}" {{#ifEquals this._id ../product._id}}selected{{/ifEquals}}>{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    <input type="number" name="items[][quantity]" value="{{this.quantity}}" class="form-control" />
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Order</button>
+    </form>
+</div>
+<script src="/javascripts/main.js"></script>
